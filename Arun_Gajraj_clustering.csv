@@ -1,0 +1,28 @@
+#Import necessary libraries
+import pandas as pd
+
+# Mock data for lookalike results
+lookalike_results = {
+    "C0001": [("C0002", 0.95), ("C0003", 0.89), ("C0004", 0.85)],
+    "C0002": [("C0001", 0.95), ("C0003", 0.87), ("C0004", 0.82)],
+    "C0003": [("C0001", 0.89), ("C0002", 0.87), ("C0004", 0.80)],
+    "C0004": [("C0001", 0.85), ("C0002", 0.82), ("C0003", 0.80)]
+}
+
+#Prepare data for the CSV
+csv_data = []
+for customer_id, similar_customers in lookalike_results.items():
+    for similar_customer, score in similar_customers:
+        csv_data.append({
+            "CustomerID": customer_id,
+            "SimilarCustomerID": similar_customer,
+            "SimilarityScore": score
+        })
+
+#Create a DataFrame
+lookalike_df = pd.DataFrame(csv_data)
+
+#Save to CSV
+lookalike_df.to_csv("Arun_Gajraj_Lookalike.csv", index=False)
+
+print("Lookalike results saved to Arun_Gajraj_Lookalike.csv")
